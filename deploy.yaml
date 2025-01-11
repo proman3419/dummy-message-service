@@ -32,3 +32,19 @@ spec:
               memory: 500Mi
           ports:
             - containerPort: 8000
+              name: http-web-svc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dummy-message-service-svc
+  namespace: dummy-message-service
+spec:
+  selector:
+    name: dummy-message-service
+  ports:
+  - name: dummy-message-service-api-port
+    protocol: TCP
+    port: 8000
+    targetPort: http-web-svc
+# kubectl -n dummy-message-service port-forward svc/dummy-message-service-svc 8000:8000
